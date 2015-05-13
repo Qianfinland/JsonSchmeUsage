@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "Model": {
+      "required": true,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "Year": {
+      "required": true,
+      "type": "integer"
+    },
+    "Color": {
+      "required": true,
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

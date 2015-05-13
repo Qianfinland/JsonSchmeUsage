@@ -1,0 +1,8 @@
+c:\users\qian.zhou\documents\visual studio 2013\Projects\GenerateJsonSchema\GenerateJsonSchema\bin\Debug\GenerateJsonSchema.exe.config
+c:\users\qian.zhou\documents\visual studio 2013\Projects\GenerateJsonSchema\GenerateJsonSchema\bin\Debug\GenerateJsonSchema.exe
+c:\users\qian.zhou\documents\visual studio 2013\Projects\GenerateJsonSchema\GenerateJsonSchema\bin\Debug\GenerateJsonSchema.pdb
+c:\users\qian.zhou\documents\visual studio 2013\Projects\GenerateJsonSchema\GenerateJsonSchema\bin\Debug\Newtonsoft.Json.dll
+c:\users\qian.zhou\documents\visual studio 2013\Projects\GenerateJsonSchema\GenerateJsonSchema\bin\Debug\Newtonsoft.Json.xml
+c:\users\qian.zhou\documents\visual studio 2013\Projects\GenerateJsonSchema\GenerateJsonSchema\obj\Debug\GenerateJsonSchema.csprojResolveAssemblyReference.cache
+c:\users\qian.zhou\documents\visual studio 2013\Projects\GenerateJsonSchema\GenerateJsonSchema\obj\Debug\GenerateJsonSchema.exe
+c:\users\qian.zhou\documents\visual studio 2013\Projects\GenerateJsonSchema\GenerateJsonSchema\obj\Debug\GenerateJsonSchema.pdb
