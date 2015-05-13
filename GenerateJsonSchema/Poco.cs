@@ -4,37 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Schema;
-using System.IO; 
+using System.IO;
+using System.Text.RegularExpressions; 
 
 namespace GenerateJsonSchema
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            // Step 1 generate json-schema from poco
-            var jsonSchemaGenerator = new JsonSchemaGenerator();
-            var myType = typeof(Car);
-            var schema = jsonSchemaGenerator.Generate(myType);
-            //Console.WriteLine(schema); // get the json schema
-
-            //schema.Title = myType.Name;
-            //Console.WriteLine(jsonSchemaGenerator); //Newtonsoft.Json.Schema.JsonSchemaGenerator
-            //Console.WriteLine(myType);//GenerateJsonSchema.Car
-            //Console.WriteLine(schema.Title); // Car
-            //Console.WriteLine(schema.Type); //Object
-            //Console.ReadLine();
-
-            // save the generated json-schema to the text file
-            TextWriter tw = File.CreateText(@"schema.txt");
-            tw.WriteLine(schema);
-            Console.WriteLine("Text file on schema created!");
-            tw.Close();
-            Console.WriteLine(Console.Read());       
-        }
-    }
-
-    /*class Poco
+    class Poco
     {
         private const string Nullable = "?";
         static void Main(string[] args)
@@ -47,7 +22,7 @@ namespace GenerateJsonSchema
             }
             var jsonSchema = JsonSchema.Parse(schemaText);
 
-            
+
             //Console.WriteLine(jsonSchema);
             //Console.ReadLine();
 
@@ -65,7 +40,7 @@ namespace GenerateJsonSchema
 
         private static StringBuilder ConvertJsonSchemaToPocos(JsonSchema schema)
         {
-            
+
             if (schema.Type == null)
                 throw new Exception("Schema does not specify a type.");
 
@@ -75,7 +50,7 @@ namespace GenerateJsonSchema
                 case JsonSchemaType.Object:
                     sb.Append(ConvertJsonSchemaObjectToPoco(schema));
                     break;
-                
+
                 // purpose not clear ????????-
                 //case JsonSchemaType.Array:
                 //    foreach (var item in schema.Items.Where(x => x.Type.HasValue && x.Type == JsonSchemaType.Object))
@@ -86,7 +61,7 @@ namespace GenerateJsonSchema
                 //    }
                 //    break;
             }
-            
+
             return sb;
         }
 
@@ -110,7 +85,7 @@ namespace GenerateJsonSchema
 
             className = String.Format("Poco_{0}", Guid.NewGuid().ToString().Replace("-", string.Empty));
             // Poco_3f692ebee83e4e278903b234173c5974
-            
+
 
             sb.Append(className);
             sb.AppendLine(" {");
@@ -143,7 +118,7 @@ namespace GenerateJsonSchema
                         return "IEnumerable<object>";
                     if (jsonSchema.Items.Count == 1)
                         return String.Format("IEnumerable<{0}>", PropertyType(jsonSchema.Items.First(), sb));
-                    
+
                     throw new Exception("Not sure what type this will be.");
 
                 case JsonSchemaType.Boolean:
@@ -169,5 +144,5 @@ namespace GenerateJsonSchema
                     return "object";
             }
         }
-    }*/
+    }
 }

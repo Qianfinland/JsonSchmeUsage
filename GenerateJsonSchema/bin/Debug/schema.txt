@@ -4,7 +4,7 @@
     "Model": {
       "required": true,
       "type": [
-        "string",
+        "integer",
         "null"
       ]
     },
@@ -18,6 +18,10 @@
         "string",
         "null"
       ]
-    }
+    },
+    "Answer": {
+      "required": true,
+      "type": "string"
+    },
   }
 }
