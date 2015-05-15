@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GenerateJsonSchema
 {
@@ -11,5 +7,6 @@ namespace GenerateJsonSchema
         public string Model { get; set; }
         public int Year { get; set; }
         public string Color { get; set; }
+        public List<string> Registrations { get; set; }
     }
 }

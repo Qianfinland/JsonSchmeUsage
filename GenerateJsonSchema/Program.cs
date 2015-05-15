@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Schema;
-using System.IO; 
+using System.IO;
 
 namespace GenerateJsonSchema
 {
@@ -30,7 +26,17 @@ namespace GenerateJsonSchema
             tw.WriteLine(schema);
             Console.WriteLine("Text file on schema created!");
             tw.Close();
-            Console.WriteLine(Console.Read());       
+            Console.WriteLine(Console.Read());
+        }
+
+        static void FromPocoToSchema()
+        {
+            // Do something
+        }
+
+        static void FromSchemaToPoco()
+        {
+            // Do something
         }
     }
 

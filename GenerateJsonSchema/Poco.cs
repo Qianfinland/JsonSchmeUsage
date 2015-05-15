@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Schema;
 using System.IO;
-using System.Text.RegularExpressions; 
 
 namespace GenerateJsonSchema
 {
@@ -94,8 +91,8 @@ namespace GenerateJsonSchema
             {
                 sb.Append("  public ");
                 // here the type for string is wrong ??????
-                //Console.WriteLine(PropertyType(item.Value, sb));
-                //Console.ReadLine();
+                Console.WriteLine(PropertyType(item.Value, sb));
+                Console.ReadLine();
                 sb.Append(PropertyType(item.Value, sb));
                 sb.Append(" ");
                 sb.Append(item.Key.Trim());
@@ -109,7 +106,7 @@ namespace GenerateJsonSchema
         private static string PropertyType(JsonSchema jsonSchema, StringBuilder sb)
         {
 
-            //Console.WriteLine(jsonSchema.Type);
+            //Console.WriteLine(jsonSchema.Type.Value);
             //Console.ReadLine();
             switch (jsonSchema.Type)
             {
@@ -117,7 +114,8 @@ namespace GenerateJsonSchema
                     if (jsonSchema.Items.Count == 0)
                         return "IEnumerable<object>";
                     if (jsonSchema.Items.Count == 1)
-                        return String.Format("IEnumerable<{0}>", PropertyType(jsonSchema.Items.First(), sb));
+                        //return String.Format("IEnumerable<{0}>", PropertyType(jsonSchema.Items.First(), sb));
+                        return "array";
 
                     throw new Exception("Not sure what type this will be.");
 

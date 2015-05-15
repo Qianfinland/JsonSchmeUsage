@@ -4,8 +4,7 @@
     "Model": {
       "required": true,
       "type": [
-        "integer",
-        "null"
+        "string",
       ]
     },
     "Year": {
@@ -19,9 +18,33 @@
         "null"
       ]
     },
-    "Answer": {
+    "StringType": {
       "required": true,
       "type": "string"
     },
+    "FloatType": {
+      "required": true,
+      "type": "number"
+    },
+    "BooleanType": {
+      "required": true,
+      "type": "boolean"
+    }, 
+    "AnyType": {
+      "required": true,
+      "type": "any"
+    },
+    "NullType": {
+      "required": true,
+      "type": "null"
+    },
+    "ArrayType": {
+      "required": true,
+      "type": "array",
+      "items": {
+	"type": "null"
+      }
+    }
+    
   }
 }
