@@ -1,4 +1,4 @@
-class Poco_8175eb2b1f2c4a86b143a2ef66169e7b {
+class Poco_89551095df1e4c74907252fdbb2aed04 {
   public string Model { get; set; }
   public int Year { get; set; }
   public object Color { get; set; }

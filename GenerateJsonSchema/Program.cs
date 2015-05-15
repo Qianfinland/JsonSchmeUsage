@@ -1,6 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json.Schema;
 using System.IO;
+using System.Text; // StringBuilder
+
+
 
 namespace GenerateJsonSchema
 {
@@ -8,7 +11,23 @@ namespace GenerateJsonSchema
     {
         static void Main(string[] args)
         {
-            // Step 1 generate json-schema from poco
+            Console.WriteLine("Write schema for creating schema and write poco to create poco:");
+            string input = Console.ReadLine();
+
+            if (input == "schema")
+            {
+                FromPocoToSchema();
+            }
+            if (input == "poco")
+            {
+                FromSchemaToPoco();
+            }
+            
+        }
+
+        // Step 1 generate json-schema from poco
+        static void FromPocoToSchema()
+        {
             var jsonSchemaGenerator = new JsonSchemaGenerator();
             var myType = typeof(Car);
             var schema = jsonSchemaGenerator.Generate(myType);
@@ -22,30 +41,17 @@ namespace GenerateJsonSchema
             //Console.ReadLine();
 
             // save the generated json-schema to the text file
-            TextWriter tw = File.CreateText(@"schema.txt");
+            TextWriter tw = File.CreateText(@"schemanew.txt");
             tw.WriteLine(schema);
             Console.WriteLine("Text file on schema created!");
             tw.Close();
             Console.WriteLine(Console.Read());
         }
 
-        static void FromPocoToSchema()
-        {
-            // Do something
-        }
-
+        //step 2: generate poco from json-schema
+        private const string Nullable = "?";
         static void FromSchemaToPoco()
         {
-            // Do something
-        }
-    }
-
-    /*class Poco
-    {
-        private const string Nullable = "?";
-        static void Main(string[] args)
-        {
-            //step 2: generate poco from json-schema
             string schemaText;
             using (var r = new StreamReader("schema.txt"))
             {
@@ -53,7 +59,7 @@ namespace GenerateJsonSchema
             }
             var jsonSchema = JsonSchema.Parse(schemaText);
 
-            
+
             //Console.WriteLine(jsonSchema);
             //Console.ReadLine();
 
@@ -71,7 +77,7 @@ namespace GenerateJsonSchema
 
         private static StringBuilder ConvertJsonSchemaToPocos(JsonSchema schema)
         {
-            
+
             if (schema.Type == null)
                 throw new Exception("Schema does not specify a type.");
 
@@ -81,7 +87,7 @@ namespace GenerateJsonSchema
                 case JsonSchemaType.Object:
                     sb.Append(ConvertJsonSchemaObjectToPoco(schema));
                     break;
-                
+
                 // purpose not clear ????????-
                 //case JsonSchemaType.Array:
                 //    foreach (var item in schema.Items.Where(x => x.Type.HasValue && x.Type == JsonSchemaType.Object))
@@ -92,7 +98,7 @@ namespace GenerateJsonSchema
                 //    }
                 //    break;
             }
-            
+
             return sb;
         }
 
@@ -116,7 +122,7 @@ namespace GenerateJsonSchema
 
             className = String.Format("Poco_{0}", Guid.NewGuid().ToString().Replace("-", string.Empty));
             // Poco_3f692ebee83e4e278903b234173c5974
-            
+
 
             sb.Append(className);
             sb.AppendLine(" {");
@@ -140,7 +146,7 @@ namespace GenerateJsonSchema
         private static string PropertyType(JsonSchema jsonSchema, StringBuilder sb)
         {
 
-            //Console.WriteLine(jsonSchema.Type);
+            //Console.WriteLine(jsonSchema.Type.Value);
             //Console.ReadLine();
             switch (jsonSchema.Type)
             {
@@ -148,8 +154,9 @@ namespace GenerateJsonSchema
                     if (jsonSchema.Items.Count == 0)
                         return "IEnumerable<object>";
                     if (jsonSchema.Items.Count == 1)
-                        return String.Format("IEnumerable<{0}>", PropertyType(jsonSchema.Items.First(), sb));
-                    
+                        //return String.Format("IEnumerable<{0}>", PropertyType(jsonSchema.Items.First(), sb));
+                        return "array";
+
                     throw new Exception("Not sure what type this will be.");
 
                 case JsonSchemaType.Boolean:
@@ -175,5 +182,5 @@ namespace GenerateJsonSchema
                     return "object";
             }
         }
-    }*/
+    }
 }
