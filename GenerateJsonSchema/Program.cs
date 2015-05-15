@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Schema;
 using System.IO;
-using System.Text; // StringBuilder
+using System.Text;
 
 
 
@@ -33,7 +33,7 @@ namespace GenerateJsonSchema
             var schema = jsonSchemaGenerator.Generate(myType);
             //Console.WriteLine(schema); // get the json schema
 
-            //schema.Title = myType.Name;
+            schema.Title = myType.Name;
             //Console.WriteLine(jsonSchemaGenerator); //Newtonsoft.Json.Schema.JsonSchemaGenerator
             //Console.WriteLine(myType);//GenerateJsonSchema.Car
             //Console.WriteLine(schema.Title); // Car
@@ -41,7 +41,7 @@ namespace GenerateJsonSchema
             //Console.ReadLine();
 
             // save the generated json-schema to the text file
-            TextWriter tw = File.CreateText(@"schemanew.txt");
+            TextWriter tw = File.CreateText(@"schema.txt");
             tw.WriteLine(schema);
             Console.WriteLine("Text file on schema created!");
             tw.Close();
@@ -67,7 +67,7 @@ namespace GenerateJsonSchema
             {
                 var sb = ConvertJsonSchemaToPocos(jsonSchema);
                 var code = sb.ToString();
-                TextWriter poco = File.CreateText(@"poconew.txt");
+                TextWriter poco = File.CreateText(@"poco.txt");
                 poco.WriteLine(code);
                 Console.WriteLine("Text file on poco created!");
                 poco.Close();
@@ -77,7 +77,6 @@ namespace GenerateJsonSchema
 
         private static StringBuilder ConvertJsonSchemaToPocos(JsonSchema schema)
         {
-
             if (schema.Type == null)
                 throw new Exception("Schema does not specify a type.");
 
@@ -88,15 +87,16 @@ namespace GenerateJsonSchema
                     sb.Append(ConvertJsonSchemaObjectToPoco(schema));
                     break;
 
-                // purpose not clear ????????-
                 //case JsonSchemaType.Array:
                 //    foreach (var item in schema.Items.Where(x => x.Type.HasValue && x.Type == JsonSchemaType.Object))
                 //    {
+
                 //        sb.Append(ConvertJsonSchemaObjectToPoco(item));
-                //        Console.WriteLine(ConvertJsonSchemaObjectToPoco(item));
-                //        Console.ReadLine();
-                //    }
-                //    break;
+
+                    //}
+                   // break;
+
+
             }
 
             return sb;
@@ -105,8 +105,6 @@ namespace GenerateJsonSchema
         private static StringBuilder ConvertJsonSchemaObjectToPoco(JsonSchema schema)
         {
             string className;
-            //Console.WriteLine(ConvertJsonSchemaObjectToPoco(schema, out className));
-            //Console.ReadLine();
             return ConvertJsonSchemaObjectToPoco(schema, out className);
         }
 
@@ -114,13 +112,13 @@ namespace GenerateJsonSchema
         {
             var sb = new StringBuilder();
             sb.Append("class ");
-            //if(schema.Title != null)
+            Console.WriteLine(schema.Title);
+            Console.ReadLine();
+            if (schema.Title != null)
+                className = schema.Title;
 
-            //    className = GenerateSlug(schema.Title);
-
-            //else
-
-            className = String.Format("Poco_{0}", Guid.NewGuid().ToString().Replace("-", string.Empty));
+            else
+                className = String.Format("Poco_{0}", Guid.NewGuid().ToString().Replace("-", string.Empty));
             // Poco_3f692ebee83e4e278903b234173c5974
 
 
@@ -145,9 +143,10 @@ namespace GenerateJsonSchema
 
         private static string PropertyType(JsonSchema jsonSchema, StringBuilder sb)
         {
-
-            //Console.WriteLine(jsonSchema.Type.Value);
+            // how to iterate all the items
+            //Console.WriteLine(jsonSchema.Items);
             //Console.ReadLine();
+            
             switch (jsonSchema.Type)
             {
                 case JsonSchemaType.Array:
@@ -172,14 +171,19 @@ namespace GenerateJsonSchema
                     return "string";
 
                 case JsonSchemaType.Object:
-                    string className;
-                    sb.Insert(0, ConvertJsonSchemaObjectToPoco(jsonSchema, out className));
-                    return className;
+                    //string className;
+                    //sb.Insert(0, ConvertJsonSchemaObjectToPoco(jsonSchema, out className));
+                    //return className;
+                    return "object";
 
                 case JsonSchemaType.None:
+                    return "none";
                 case JsonSchemaType.Null:
+                    return "null";
+                case JsonSchemaType.Any:
+                    return "any";
                 default:
-                    return "object";
+                    return "string";
             }
         }
     }

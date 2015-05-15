@@ -5,7 +5,6 @@
       "required": true,
       "type": [
         "string",
-        "null"
       ]
     },
     "Year": {
@@ -16,21 +15,40 @@
       "required": true,
       "type": [
         "string",
-        "null"
+        "number"
       ]
     },
-    "Registrations": {
+    "StringType": {
       "required": true,
-      "type": [
-        "array",
-        "null"
-      ],
+      "type": "string"
+    },
+    "FloatType": {
+      "required": true,
+      "type": "number"
+    },
+    "BooleanType": {
+      "required": true,
+      "type": "boolean"
+    }, 
+    "AnyType": {
+      "required": true,
+      "type": "any"
+    },
+    "NullType": {
+      "required": true,
+      "type": "null"
+    },
+    "ArrayType": {
+      "required": true,
+      "type": "array",
       "items": {
-        "type": [
-          "string",
-          "null"
-        ]
+	"type": "null"
       }
-    }
+    },
+    "ObjectType": {
+       "required": true,
+       "type": "object"
+     }
+    
   }
 }

@@ -1,12 +1,13 @@
-class Poco_89551095df1e4c74907252fdbb2aed04 {
+class Poco_bdd79ed814c84d95af6a23bc2f3d1c78 {
   public string Model { get; set; }
   public int Year { get; set; }
-  public object Color { get; set; }
+  public string Color { get; set; }
   public string StringType { get; set; }
   public float FloatType { get; set; }
   public bool BooleanType { get; set; }
-  public object AnyType { get; set; }
-  public object NullType { get; set; }
+  public any AnyType { get; set; }
+  public null NullType { get; set; }
   public array ArrayType { get; set; }
+  public object ObjectType { get; set; }
 }
 

@@ -1,6 +1,8 @@
-public class Poco_60ff06f730924ccfb3354873ecd0503a {
-public object Model { get; set; }
-public int Year { get; set; }
-public object Color { get; set; }
+class Car {
+  public string Model { get; set; }
+  public int Year { get; set; }
+  public string Color { get; set; }
+  public string Price { get; set; }
+  public string TravelCities { get; set; }
 }
 

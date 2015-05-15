@@ -1,10 +1,12 @@
 {
+  "title": "Car",
   "type": "object",
   "properties": {
     "Model": {
       "required": true,
       "type": [
         "string",
+        "null"
       ]
     },
     "Year": {
@@ -18,33 +20,28 @@
         "null"
       ]
     },
-    "StringType": {
+    "Price": {
       "required": true,
-      "type": "string"
-    },
-    "FloatType": {
-      "required": true,
-      "type": "number"
-    },
-    "BooleanType": {
-      "required": true,
-      "type": "boolean"
-    }, 
-    "AnyType": {
-      "required": true,
-      "type": "any"
-    },
-    "NullType": {
-      "required": true,
-      "type": "null"
-    },
-    "ArrayType": {
-      "required": true,
-      "type": "array",
+      "type": [
+        "array",
+        "null"
+      ],
       "items": {
-	"type": "null"
+        "type": "integer"
+      }
+    },
+    "TravelCities": {
+      "required": true,
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
       }
     }
-    
   }
 }

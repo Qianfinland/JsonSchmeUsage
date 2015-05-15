@@ -7,6 +7,8 @@ namespace GenerateJsonSchema
         public string Model { get; set; }
         public int Year { get; set; }
         public string Color { get; set; }
-        public List<string> Registrations { get; set; }
+        public int[] Price { get; set; }
+        public string[] TravelCities { get; set; }
+        //public List<string> Registrations { get; set; }
     }
 }
