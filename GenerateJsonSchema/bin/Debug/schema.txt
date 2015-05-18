@@ -29,19 +29,6 @@
       "items": {
         "type": "integer"
       }
-    },
-    "TravelCities": {
-      "required": true,
-      "type": [
-        "array",
-        "null"
-      ],
-      "items": {
-        "type": [
-          "string",
-          "null"
-        ]
-      }
     }
   }
 }

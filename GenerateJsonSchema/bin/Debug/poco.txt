@@ -3,6 +3,5 @@ class Car {
   public int Year { get; set; }
   public string Color { get; set; }
   public string Price { get; set; }
-  public string TravelCities { get; set; }
 }
 

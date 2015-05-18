@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace GenerateJsonSchema
 {
     class Car
@@ -8,7 +7,6 @@ namespace GenerateJsonSchema
         public int Year { get; set; }
         public string Color { get; set; }
         public int[] Price { get; set; }
-        public string[] TravelCities { get; set; }
         //public List<string> Registrations { get; set; }
     }
 }

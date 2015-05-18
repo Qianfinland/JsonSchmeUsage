@@ -1,8 +1,7 @@
-﻿using System;
-using Newtonsoft.Json.Schema;
+﻿using Newtonsoft.Json.Schema;
+using System;
 using System.IO;
 using System.Text;
-
 
 
 namespace GenerateJsonSchema
@@ -93,8 +92,8 @@ namespace GenerateJsonSchema
 
                 //        sb.Append(ConvertJsonSchemaObjectToPoco(item));
 
-                    //}
-                   // break;
+                //    }
+                //    break;
 
 
             }
@@ -112,8 +111,6 @@ namespace GenerateJsonSchema
         {
             var sb = new StringBuilder();
             sb.Append("class ");
-            Console.WriteLine(schema.Title);
-            Console.ReadLine();
             if (schema.Title != null)
                 className = schema.Title;
 
@@ -147,13 +144,14 @@ namespace GenerateJsonSchema
             //Console.WriteLine(jsonSchema.Items);
             //Console.ReadLine();
             
+            
             switch (jsonSchema.Type)
             {
                 case JsonSchemaType.Array:
                     if (jsonSchema.Items.Count == 0)
                         return "IEnumerable<object>";
                     if (jsonSchema.Items.Count == 1)
-                        //return String.Format("IEnumerable<{0}>", PropertyType(jsonSchema.Items.First(), sb));
+                        //return String.Format("IEnumerable<{0}>", PropertyType(jsonSchema.Items[0], sb));
                         return "array";
 
                     throw new Exception("Not sure what type this will be.");
