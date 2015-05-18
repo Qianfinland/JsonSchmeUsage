@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 
 namespace GenerateJsonSchema
@@ -52,7 +53,7 @@ namespace GenerateJsonSchema
         static void FromSchemaToPoco()
         {
             string schemaText;
-            using (var r = new StreamReader("schema.txt"))
+            using (var r = new StreamReader("schemanew.txt"))
             {
                 schemaText = r.ReadToEnd();
             }
@@ -116,7 +117,7 @@ namespace GenerateJsonSchema
 
             else
                 className = String.Format("Poco_{0}", Guid.NewGuid().ToString().Replace("-", string.Empty));
-            // Poco_3f692ebee83e4e278903b234173c5974
+                // Poco_3f692ebee83e4e278903b234173c5974
 
 
             sb.Append(className);
@@ -124,6 +125,7 @@ namespace GenerateJsonSchema
 
             foreach (var item in schema.Properties)
             {
+                //System.Collections.Generic.Dictionary'2[System.String.Newtonsoft.Json.Schema.JsonSchema]
                 sb.Append("  public ");
                 // here the type for string is wrong ??????
                 //Console.WriteLine(PropertyType(item.Value, sb));
@@ -143,46 +145,62 @@ namespace GenerateJsonSchema
             // how to iterate all the items
             //Console.WriteLine(jsonSchema.Items);
             //Console.ReadLine();
+            //System.Collections.Generic.List'1[Newtonsoft.Json.Schema.JsonSchema]
+
+            var propertyTypeInString = jsonSchema.Type.Value.ToString();
+            var comma = propertyTypeInString.IndexOf(',');
+            var typeResult = " ";
+            if(comma != -1)
+                typeResult = propertyTypeInString.Substring(0,propertyTypeInString.IndexOf(','));
+            if(comma == -1)
+                typeResult = propertyTypeInString;
+            //debug type
+            Console.WriteLine(propertyTypeInString);
+            Console.WriteLine(typeResult);
+            Console.ReadLine();
+
+
             
-            
-            switch (jsonSchema.Type)
-            {
-                case JsonSchemaType.Array:
-                    if (jsonSchema.Items.Count == 0)
-                        return "IEnumerable<object>";
-                    if (jsonSchema.Items.Count == 1)
-                        //return String.Format("IEnumerable<{0}>", PropertyType(jsonSchema.Items[0], sb));
-                        return "array";
+            // old code to get property type
+            //switch (jsonSchema.Type)
+            //{
+                
+            //    case JsonSchemaType.Array:
+            //        if (jsonSchema.Items.Count == 0)
+            //            return "IEnumerable<object>";
+            //        if (jsonSchema.Items.Count == 1)
+            //            //return String.Format("IEnumerable<{0}>", PropertyType(jsonSchema.Items[0], sb));
+            //            return "array";
 
-                    throw new Exception("Not sure what type this will be.");
+            //        throw new Exception("Not sure what type this will be.");
 
-                case JsonSchemaType.Boolean:
-                    return String.Format("bool{0}", jsonSchema.Required.HasValue && jsonSchema.Required.Value ? string.Empty : Nullable);
+            //    case JsonSchemaType.Boolean:
+            //        return String.Format("bool{0}", jsonSchema.Required.HasValue && jsonSchema.Required.Value ? string.Empty : Nullable);
 
-                case JsonSchemaType.Float:
-                    return String.Format("float{0}", jsonSchema.Required.HasValue && jsonSchema.Required.Value ? string.Empty : Nullable);
+            //    case JsonSchemaType.Float:
+            //        return String.Format("float{0}", jsonSchema.Required.HasValue && jsonSchema.Required.Value ? string.Empty : Nullable);
 
-                case JsonSchemaType.Integer:
-                    return String.Format("int{0}", jsonSchema.Required.HasValue && jsonSchema.Required.Value ? string.Empty : Nullable);
+            //    case JsonSchemaType.Integer:
+            //        return String.Format("int{0}", jsonSchema.Required.HasValue && jsonSchema.Required.Value ? string.Empty : Nullable);
 
-                case JsonSchemaType.String:
-                    return "string";
+            //    case JsonSchemaType.String:
+            //        return "string";
 
-                case JsonSchemaType.Object:
-                    //string className;
-                    //sb.Insert(0, ConvertJsonSchemaObjectToPoco(jsonSchema, out className));
-                    //return className;
-                    return "object";
+            //    case JsonSchemaType.Object:
+            //        //string className;
+            //        //sb.Insert(0, ConvertJsonSchemaObjectToPoco(jsonSchema, out className));
+            //        //return className;
+            //        return "object";
 
-                case JsonSchemaType.None:
-                    return "none";
-                case JsonSchemaType.Null:
-                    return "null";
-                case JsonSchemaType.Any:
-                    return "any";
-                default:
-                    return "string";
-            }
+            //    case JsonSchemaType.None:
+            //        return "none";
+            //    case JsonSchemaType.Null:
+            //        return "null";
+            //    case JsonSchemaType.Any:
+            //        return "any";
+            //    default:
+            //        return "string";
+            //}
         }
     }
 }

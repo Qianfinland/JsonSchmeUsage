@@ -1,7 +1,13 @@
-class Car {
+class Poco_39e59838525343ee9d60d3e32eaafb93 {
   public string Model { get; set; }
   public int Year { get; set; }
   public string Color { get; set; }
-  public string Price { get; set; }
+  public string StringType { get; set; }
+  public float FloatType { get; set; }
+  public bool BooleanType { get; set; }
+  public any AnyType { get; set; }
+  public null NullType { get; set; }
+  public array ArrayType { get; set; }
+  public object ObjectType { get; set; }
 }
 
