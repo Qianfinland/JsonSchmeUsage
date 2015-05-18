@@ -53,7 +53,7 @@ namespace GenerateJsonSchema
         static void FromSchemaToPoco()
         {
             string schemaText;
-            using (var r = new StreamReader("schemanew.txt"))
+            using (var r = new StreamReader("schema.txt"))
             {
                 schemaText = r.ReadToEnd();
             }
@@ -147,24 +147,38 @@ namespace GenerateJsonSchema
             //Console.ReadLine();
             //System.Collections.Generic.List'1[Newtonsoft.Json.Schema.JsonSchema]
 
-            var propertyTypeInString = jsonSchema.Type.Value.ToString();
+            // new code to get property type
+            var propertyTypeInString = jsonSchema.Type.Value.ToString().ToLower();
             var comma = propertyTypeInString.IndexOf(',');
             var typeResult = " ";
-            if(comma != -1)
-                typeResult = propertyTypeInString.Substring(0,propertyTypeInString.IndexOf(','));
-            if(comma == -1)
-                typeResult = propertyTypeInString;
-            //debug type
-            Console.WriteLine(propertyTypeInString);
-            Console.WriteLine(typeResult);
-            Console.ReadLine();
+            var arrayType = " ";
 
+            if (comma != -1)
+                typeResult = propertyTypeInString.Substring(0, propertyTypeInString.IndexOf(','));
+            if (typeResult == "array")
+                arrayType = jsonSchema.Items[0].ToString();
+            if (arrayType.Contains("integer"))
+                return "int[]";
+            if (arrayType.Contains("string") && arrayType.Contains("null"))
+                return "string[]";
+            if (arrayType.Contains("string") && (arrayType.Contains("null")== false))
+                return "char[]";
+            if (arrayType.Contains("number"))
+                return "float[]";
+            if (comma == -1)
+                typeResult = propertyTypeInString;
+
+            //debug type
+            //Console.WriteLine(propertyTypeInString);
+            //Console.WriteLine(typeResult);
+            //Console.ReadLine();
+            return typeResult;
 
             
             // old code to get property type
             //switch (jsonSchema.Type)
             //{
-                
+
             //    case JsonSchemaType.Array:
             //        if (jsonSchema.Items.Count == 0)
             //            return "IEnumerable<object>";

@@ -1,13 +1,10 @@
-class Poco_39e59838525343ee9d60d3e32eaafb93 {
+class Car {
   public string Model { get; set; }
-  public int Year { get; set; }
+  public integer Year { get; set; }
   public string Color { get; set; }
-  public string StringType { get; set; }
-  public float FloatType { get; set; }
-  public bool BooleanType { get; set; }
-  public any AnyType { get; set; }
-  public null NullType { get; set; }
-  public array ArrayType { get; set; }
-  public object ObjectType { get; set; }
+  public int[] Price { get; set; }
+  public string[] Cities { get; set; }
+  public char[] CharTest { get; set; }
+  public object MyProperty { get; set; }
 }
 

@@ -29,6 +29,45 @@
       "items": {
         "type": "integer"
       }
+    },
+    "Cities": {
+      "required": true,
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "CharTest": {
+      "required": true,
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "MyProperty": {
+      "required": true,
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Description": {
+          "required": true,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
     }
   }
 }
