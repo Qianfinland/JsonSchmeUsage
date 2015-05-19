@@ -45,6 +45,10 @@
     },
     "CharTest": {
       "required": true,
+      "type": "string"
+    },
+    "CharArrayTest": {
+      "required": true,
       "type": [
         "array",
         "null"
@@ -53,7 +57,21 @@
         "type": "string"
       }
     },
-    "MyProperty": {
+    "FloatTest": {
+      "required": true,
+      "type": "number"
+    },
+    "FloatArrayTest": {
+      "required": true,
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "number"
+      }
+    },
+    "NamespaceTest": {
       "required": true,
       "type": [
         "object",

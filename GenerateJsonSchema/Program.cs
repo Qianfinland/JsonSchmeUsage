@@ -142,37 +142,58 @@ namespace GenerateJsonSchema
 
         private static string PropertyType(JsonSchema jsonSchema, StringBuilder sb)
         {
-            // how to iterate all the items
-            //Console.WriteLine(jsonSchema.Items);
-            //Console.ReadLine();
-            //System.Collections.Generic.List'1[Newtonsoft.Json.Schema.JsonSchema]
 
             // new code to get property type
             var propertyTypeInString = jsonSchema.Type.Value.ToString().ToLower();
             var comma = propertyTypeInString.IndexOf(',');
             var typeResult = " ";
             var arrayType = " ";
-
-            if (comma != -1)
-                typeResult = propertyTypeInString.Substring(0, propertyTypeInString.IndexOf(','));
-            if (typeResult == "array")
-                arrayType = jsonSchema.Items[0].ToString();
-            if (arrayType.Contains("integer"))
-                return "int[]";
-            if (arrayType.Contains("string") && arrayType.Contains("null"))
-                return "string[]";
-            if (arrayType.Contains("string") && (arrayType.Contains("null")== false))
-                return "char[]";
-            if (arrayType.Contains("number"))
-                return "float[]";
+            var result = " ";
+            // simple type 
             if (comma == -1)
+            {
                 typeResult = propertyTypeInString;
-
-            //debug type
-            //Console.WriteLine(propertyTypeInString);
-            //Console.WriteLine(typeResult);
-            //Console.ReadLine();
-            return typeResult;
+                if (typeResult == "integer")
+                    result = "int";
+                else if (typeResult == "string")
+                    result = "char";
+                else if (typeResult == "float")
+                    result = "float";
+                else
+                    result = "Error in this simple type";
+            }
+            
+            //union type 
+            if (comma != -1)
+            {
+                typeResult = propertyTypeInString.Substring(0, comma);
+                if (typeResult == "array")
+                {
+                    arrayType = jsonSchema.Items[0].ToString();
+                    if (arrayType.Contains("integer"))
+                        result = "int[]";
+                    else if (arrayType.Contains("string") && arrayType.Contains("null"))
+                        result = "string[]";
+                    else if (arrayType.Contains("string") && (arrayType.Contains("null") == false))
+                        result = "char[]";
+                    else if (arrayType.Contains("number"))
+                        result = "float[]";
+                    else
+                        result = "Error in this uninion type";
+                }
+                else if (typeResult == "string")
+                {
+                    result = "string";
+                }
+                else if (typeResult == "object")
+                {
+                    result = "object";
+                }
+                else
+                    result = "Error";   
+            }    
+          
+            return result;
 
             
             // old code to get property type
@@ -217,4 +238,5 @@ namespace GenerateJsonSchema
             //}
         }
     }
+
 }
